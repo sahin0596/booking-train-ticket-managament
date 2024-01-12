@@ -60,11 +60,7 @@ export const getAllUserDetails = () => {
 
 // Function to add a new passenger
 export const addPassenger = (passengerData) => {
-    return axios.post(`${base_url}/AddPassenger`, passengerData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+    return axios.post(`${base_url}/AddPassenger`, passengerData)
       .then((response) => {
         return response.data; // You can customize the return based on your API response
       })
@@ -74,13 +70,13 @@ export const addPassenger = (passengerData) => {
       });
   };
 
-export const createBooking = (bookingData) => {
-    return axios.post(`${base_url}/CreateBooking`, bookingData)
-      .then((response) => {
-        return response.data; // You can return the response if needed
-      })
-      .catch((error) => {
-        console.error(error);
-        throw error;
-      });
-};
+// export const createBooking = (bookingData) => {
+//     return axios.post(`${base_url}/CreateBooking`, bookingData)
+//       .then((response) => {
+//         return response.data; // You can return the response if needed
+//       })
+//       .catch((error) => {
+//         console.error(error);
+//         throw error;
+//       });
+// };
