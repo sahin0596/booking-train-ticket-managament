@@ -13,6 +13,7 @@ import logo from '../../assets/logoo.png'
 import { useContext } from 'react';// for auth
 import { AuthContext } from '../../context/AuthContext'; //for auth
 
+import TicketService from '../../services/api';
 
 const navLinks = [
   {
@@ -66,6 +67,28 @@ const Header = () => {
     }
   };
 
+  const [showProfilePopup, setShowProfilePopup] = useState(false);
+
+
+  const toggleProfilePopup = () => {
+    setShowProfilePopup(!showProfilePopup);
+  };
+
+  const deletePassenger = () => {
+    TicketService.deletePassengerByPassengerId(user.passengerID) // Directly pass passengerId as a number
+      .then((response) => {
+        // Handle the response as needed
+        console.log('Passenger deleted successfully:', response);
+        // Add any additional logic or state updates here
+        logout();
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error('Error deleting passenger:', error);
+      });
+  };
+  
+
   return (
     <div className='navBar flex'>
       <div className='navBarOne flex'>
@@ -76,16 +99,31 @@ const Header = () => {
           <li className='flex'><BsPhoneVibrate className='icon'/>Support</li>
           <li className='flex'><AiOutlineGlobal className='icon'/>Languages</li>
         </div>
-        {user?
-        <div className='atb flex'>
-        <span>{user.firstName+user.lastName}</span>
-        <span onClick={logout}>Logout</span>
-      </div>:
-        <div className='atb flex'>
-          <span><Link to="/login">Log In</Link></span>
-          <span><Link to="/Register">Register</Link></span>
-        </div>
-        }
+        {user ? (
+            <>
+              <div className='atb flex'>
+              <span className='user' onClick={toggleProfilePopup}>
+                {user.firstName + user.lastName}
+              </span>
+              {showProfilePopup && (
+                <div className="profile-popup">
+                  {/* Your profile details go here */}
+                  <div>Username: {user.firstName + user.lastName}</div>
+                  <div>Email: {user.email}</div>
+                  
+                    <button className='btn' onClick={logout}>Logout</button>
+                    <button className='btn delete' onClick={deletePassenger}>Delete</button>
+    
+                </div>
+              )}
+              </div>
+            </>
+          ) : (
+            <div className='atb flex'>
+              <span><Link to="/login">Log In</Link></span>
+              <span><Link to="/Register">Register</Link></span>
+            </div>
+          )}
       </div>
       
       <div className={noBg}>

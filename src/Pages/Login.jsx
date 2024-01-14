@@ -1,53 +1,58 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Form, FormGroup, Button } from 'reactstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import { getAllUserDetails } from '../services/api';
-import '../styles/login.css';
-import loginImg from '../assets/login.png';
-import userIcon from '../assets/user.png';
+import React, { useState } from "react";
+import { Container, Row, Col, Form, FormGroup, Button } from "reactstrap";
+import { Link, useNavigate } from "react-router-dom";
+import TicketService from "../services/api";
+import "../styles/login.css";
+import loginImg from "../assets/login.png";
+import userIcon from "../assets/user.png";
 
-
-import { useContext } from 'react';//for auth
-import { AuthContext } from '../context/AuthContext';//for auth
+import { useContext } from "react"; //for auth
+import { AuthContext } from "../context/AuthContext"; //for auth
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
     email: undefined,
     password: undefined,
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const {dispatch} = useContext(AuthContext)//for auth
+  const { dispatch } = useContext(AuthContext); //for auth
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const handleClick = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    dispatch({type:'LOGIN_START'})//for auth
+  dispatch({ type: "LOGIN_START" }); //for auth
 
-    try {
-      const userData = await getAllUserDetails();
+  try {
+    const response = await TicketService.getAllPassengers();
+    // console.log(response);
 
+    // Check if the response contains a 'data' property that is an array
+    if (response && response.data && Array.isArray(response.data)) {
+      const userData = response.data;
       const user = userData.find((u) => u.email === credentials.email);
 
       if (user && user.password === credentials.password) {
         // Successful login, redirect to Home
-        // console.log(user)
-        dispatch({type:'LOGIN_SUCCESS',payload:user})//for auth
-        navigate('/home');
-        
+        console.log(user);
+        dispatch({ type: "LOGIN_SUCCESS", payload: user }); //for auth
+        navigate("/home");
       } else {
-        setError('Invalid email or password');
+        setError("Invalid email or password");
       }
-    } catch (error) {
-      console.error('Error fetching user data', error);
-      dispatch({type:'LOGIN_FAILURE', payload:error.message})
+    } else {
+      setError("Error fetching user data");
     }
-  };
+  } catch (error) {
+    console.error("Error fetching user data", error);
+    dispatch({ type: "LOGIN_FAILURE", payload: error.message });
+  }
+};
 
   return (
     <>
@@ -66,10 +71,26 @@ const Login = () => {
                   <h2>Login</h2>
                   <Form onSubmit={handleClick}>
                     <FormGroup>
-                      <input type="email" placeholder="Email" required id="email" onChange={handleChange} />
+                      <input
+                        type="email"
+                        pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+                        title="invalid email!"
+                        placeholder="Email"
+                        required
+                        id="email"
+                        onChange={handleChange}
+                      />
                     </FormGroup>
                     <FormGroup>
-                      <input type="password" placeholder="Password" required id="password" onChange={handleChange} />
+                      <input
+                        type="password"
+                        // pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
+                        placeholder="Password"
+                        required
+                        id="password"
+                        onChange={handleChange}
+                      />
                     </FormGroup>
                     <Button className="btn auth_btn" type="submit">
                       Login

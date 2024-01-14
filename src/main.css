@@ -139,6 +139,7 @@ h2 {
 .display {
   padding-top: 10rem;
   padding-bottom: 3rem;
+  min-height: 75vh;
 }
 
 .navBar {
@@ -163,12 +164,42 @@ h2 {
 }
 .navBar .navBarOne .atb span {
   color: var(--blackColor);
-  font-size: 11px;
+  font-size: 16px;
   cursor: pointer;
 }
 .navBar .navBarOne .atb span:hover {
   color: var(--PrimaryColor);
   font-size: 700;
+}
+.navBar .navBarOne .atb span .user {
+  font-weight: bold;
+  font-size: 16px;
+}
+.navBar .navBarOne .profile-popup {
+  position: fixed;
+  top: 40px;
+  right: 0;
+  background-color: var(--greyBg);
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  padding: 20px;
+  margin-right: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+.navBar .navBarOne .profile-popup div {
+  margin-bottom: 8px;
+}
+.navBar .navBarOne .profile-popup button {
+  margin-right: 10px;
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+}
+.navBar .navBarOne .profile-popup .delete {
+  background-color: #f01d1d;
 }
 .navBar .navBarTwo {
   display: flex;
@@ -476,7 +507,7 @@ p:only-child + .trains .details-table, .trains .details-table:empty {
   padding: 0.5rem;
 }
 .booking .booking-table {
-  width: 10%;
+  width: 30%;
   border-collapse: collapse;
   margin-top: 2rem;
 }

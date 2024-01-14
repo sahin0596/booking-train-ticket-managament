@@ -1,16 +1,17 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React from "react";
+import { useState, useEffect } from "react";
 
-import {HiOutlineLocationMarker} from 'react-icons/hi'
-import {RiAccountPinCircleLine} from 'react-icons/ri'
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { RiAccountPinCircleLine } from "react-icons/ri";
 import { MdOutlineDateRange } from "react-icons/md";
-import { SectionWrapper } from '../../hoc';
+import { SectionWrapper } from "../../hoc";
 // import axios from 'axios';
 
 // import base_url from '../../services/api';
-import Train from '../Train/Train';
+import Train from "../Train/Train";
 // import fetchTrainDetails from '../../services/api'
-import { getAllTrains } from '../../services/api';
+// import { getAllTrains } from '../../services/api';
+import TicketService from "../../services/api";
 
 /*sample data*/
 // const fetchTrainDetails = [
@@ -40,62 +41,70 @@ import { getAllTrains } from '../../services/api';
 //   },
 // ];
 
-
 const Search = () => {
-  const [searchFrom, setSearchFrom] = useState('');
-  const [searchTo, setSearchTo] = useState('');
-  const [selectedCoach, setSelectedCoach] = useState('');
-  const [searchDate, setSearchDate] = useState('');
-  const [requiredSeats, setRequiredSeats] = useState('');
+  const [searchFrom, setSearchFrom] = useState("");
+  const [searchTo, setSearchTo] = useState("");
+  const [selectedCoach, setSelectedCoach] = useState("");
+  const [searchDate, setSearchDate] = useState("");
+  const [requiredSeats, setRequiredSeats] = useState("");
 
   const [trains, setTrains] = useState([]);
   const [headers, setHeaders] = useState([]);
-  
-  
-  useEffect(() => {
-    getAllTrains().then((data) => {
-      // console.log(data);
-      setTrains(data);
-      const newHeaders = data.length > 0 ? Object.keys(data[0]) : [];
-      setHeaders(newHeaders);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  }, []);
-  
 
-  
+  useEffect(() => {
+    TicketService.getAllTrains()
+      .then((data) => {
+        // console.log(data);
+        setTrains(data);
+        const newHeaders = data.length > 0 ? Object.keys(data[0]) : [];
+        setHeaders(newHeaders);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   // const filteredTrainDetails = fetchTrainDetails.filter((train) => {
-    //   return (
-      //     train.From.toLowerCase().includes(searchFrom.toLowerCase()) &&
-      //     train.To.toLowerCase().includes(searchTo.toLowerCase()) &&
-      //     (selectedCoach === '' || train.Type.toLowerCase() === selectedCoach.toLowerCase()) &&
-      //     (!requiredSeats || train.Passenger >= parseInt(requiredSeats, 10))&&
-      //     (!searchDate || new Date(train.Check_In_Date) >= new Date(searchDate))
-      //   );
-      // });
-  
+  //   return (
+  //     train.From.toLowerCase().includes(searchFrom.toLowerCase()) &&
+  //     train.To.toLowerCase().includes(searchTo.toLowerCase()) &&
+  //     (selectedCoach === '' || train.Type.toLowerCase() === selectedCoach.toLowerCase()) &&
+  //     (!requiredSeats || train.Passenger >= parseInt(requiredSeats, 10))&&
+  //     (!searchDate || new Date(train.Check_In_Date) >= new Date(searchDate))
+  //   );
+  // });
+
   const filteredTrainDetails = trains.filter((train) => {
     return (
-      train.departureStationName.toLowerCase().includes(searchFrom.toLowerCase()) &&
+      train.departureStationName
+        .toLowerCase()
+        .includes(searchFrom.toLowerCase()) &&
       train.arrivalStationName.toLowerCase().includes(searchTo.toLowerCase()) &&
       // (selectedCoach === '' || train.Type.toLowerCase() === selectedCoach.toLowerCase()) &&
-      (!requiredSeats || (train.totalSeats-train.bookedSeats) >= parseInt(requiredSeats, 10)) &&
+      (!requiredSeats ||
+        train.totalSeats - train.bookedSeats >= parseInt(requiredSeats, 10)) &&
       (!searchDate || new Date(train.departureDate) >= new Date(searchDate))
     );
   });
-  
+
   // const headers = Object.keys(fetchTrainDetails[0]);// used in static data for fetching
-  
+
   return (
-    <div className='search container section'>
+    <div className="search container section">
       <div className="sectionContainer grid">
         <div className="btns flex">
-          <div className={`singleBtn ${selectedCoach === 'AC' ? 'active' : ''}`} onClick={() => setSelectedCoach('AC')}>
+          <div
+            className={`singleBtn ${selectedCoach === "AC" ? "active" : ""}`}
+            onClick={() => setSelectedCoach("AC")}
+          >
             <span>AC Coach</span>
           </div>
-          <div className={`singleBtn ${selectedCoach === 'General' ? 'active' : ''}`} onClick={() => setSelectedCoach('General')}>
+          <div
+            className={`singleBtn ${
+              selectedCoach === "General" ? "active" : ""
+            }`}
+            onClick={() => setSelectedCoach("General")}
+          >
             <span>General Coach</span>
           </div>
         </div>
@@ -104,52 +113,72 @@ const Search = () => {
           {/* Single Input */}
           <div className="singleInput flex">
             <div className="iconDiv">
-              <HiOutlineLocationMarker className='icon'/>
+              <HiOutlineLocationMarker className="icon" />
             </div>
-            <div className='texts'>
+            <div className="texts">
               <h4>From</h4>
-              <input type="text" placeholder='Where from? 'value={searchFrom} onChange={(e) => setSearchFrom(e.target.value)}/>
+              <input
+                type="text"
+                placeholder="Where from? "
+                value={searchFrom}
+                onChange={(e) => setSearchFrom(e.target.value)}
+              />
             </div>
           </div>
           {/* Single Input */}
           <div className="singleInput flex">
             <div className="iconDiv">
-              <RiAccountPinCircleLine className='icon'/>
+              <RiAccountPinCircleLine className="icon" />
             </div>
-            <div className='texts'>
+            <div className="texts">
               <h4>Destination</h4>
-              <input type="text" placeholder='Where do you want to go?'value={searchTo} onChange={(e) => setSearchTo(e.target.value)}/>
+              <input
+                type="text"
+                placeholder="Where do you want to go?"
+                value={searchTo}
+                onChange={(e) => setSearchTo(e.target.value)}
+              />
             </div>
           </div>
           {/* Travelers */}
           <div className="singleInput flex">
             <div className="iconDiv">
-              <MdOutlineDateRange className='icon'/>
+              <MdOutlineDateRange className="icon" />
             </div>
-            <div className='texts'>
+            <div className="texts">
               <h4>Passengers</h4>
-              <input type="text" placeholder='Add passengers' value={requiredSeats} onChange={(e) => setRequiredSeats(e.target.value)}/>
+              <input
+                type="text"
+                placeholder="Add passengers"
+                value={requiredSeats}
+                onChange={(e) => setRequiredSeats(e.target.value)}
+              />
             </div>
           </div>
           {/* Single Input */}
           <div className="singleInput flex">
             <div className="iconDiv">
-              <MdOutlineDateRange className='icon'/>
+              <MdOutlineDateRange className="icon" />
             </div>
-            <div className='texts'>
+            <div className="texts">
               <h4>Check-In Date</h4>
-              <input type="date" placeholder='when?' value={searchDate} onChange={(e) => setSearchDate(e.target.value)}/>
+              <input
+                type="date"
+                placeholder="when?"
+                value={searchDate}
+                onChange={(e) => setSearchDate(e.target.value)}
+              />
             </div>
           </div>
           {/* <button className='btn btnBlock'>Search Trains</button> */}
         </div>
         {searchFrom || searchTo ? (
-          <Train trains={filteredTrainDetails} headers={headers}/>
+          <Train trains={filteredTrainDetails} headers={headers} />
         ) : null}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SectionWrapper(Search,"search")
+export default SectionWrapper(Search, "search");
 // export default Search

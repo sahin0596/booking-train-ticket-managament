@@ -1,110 +1,163 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { createBooking } from "../services/api";
-import { Form, FormGroup, Button } from "reactstrap";
+import { useParams, useNavigate } from "react-router-dom";
+import { Form, FormGroup, Button, Table } from "reactstrap";
+import TicketService from "../services/api";
 
 const Booking = () => {
-  const { bookingId } = useParams();
-  const [bookingDetails, setBookingDetails] = useState(null);
+  const { trainName } = useParams();
+  const [trains, setTrains] = useState([]);
+  const [passengers, setPassengers] = useState([]);
+  const [passengerList, setPassengerList] = useState([]);
+  const [passengerName, setPassengerName] = useState("");
+  const [passengerAge, setPassengerAge] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch booking details using bookingId (Assuming you have an endpoint to get individual booking details)
-    // Example: create another API function in api.js to get booking details by ID
-    // const fetchBookingDetails = async () => {
-    //   try {
-    //     const response = await axios.get(`${base_url}/GetBooking/${bookingId}`);
-    //     setBookingDetails(response.data);
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
-    // Uncomment the line below if you have a function to fetch booking details
-    // fetchBookingDetails();
-  }, [bookingId]);
+    const fetchTrainsAndPassengers = async () => {
+      try {
+        const trainsData = await TicketService.getAllTrains();
+        const response = await TicketService.getAllPassengers();
 
-  const dynamicBookingData = {
-    bookingId: 1,
-    trainId: 123,
-    passengerId: 456,
-    travelDate: "2024-01-12T05:28:28.231Z",
-    bookingDate: "2024-01-12T05:28:28.231Z",
-    totalSeats: 2,
-    TrainAppBookingPassengers: [
-      {
-        bookingPassengerId: 12,
-        bookingId: 1,
-        passengerName: "John Doe",
-        seatNo: 1,
-        age: 30,
-      },
-    ],
+        // Check if the response has a 'data' property that is an array before updating the state
+        if (Array.isArray(response.data)) {
+          setPassengers(response.data);
+        } else {
+          console.error("Invalid data for passengers:", response);
+        }
+
+        // Update the state for trains (assuming trainsData is an array)
+        setTrains(trainsData);
+      } catch (error) {
+        console.error("Error fetching trains and passengers:", error);
+      }
+    };
+
+    fetchTrainsAndPassengers();
+  }, []);
+
+  const handleAddPassenger = () => {
+    // Check if there is a matching passenger before adding to the list
+    const selectedPassenger = passengers.find((passenger) => {
+      const fullName = `${passenger.firstName} ${passenger.lastName}`;
+      return fullName.toLowerCase() === passengerName.trim().toLowerCase();
+    });
+
+    if (selectedPassenger) {
+      const newPassenger = {
+        passengerName: passengerName,
+        age: passengerAge,
+      };
+      setPassengerList([...passengerList, newPassenger]);
+    //   setPassengerName("");
+    //   setPassengerAge("");
+    } else {
+      // Display an alert if no matching passenger found
+      alert("No matching passenger found. Please check the passenger name.");
+    }
   };
 
   const handleCreateBooking = () => {
-    // Call the createBooking function with the dynamicBookingData
-    createBooking(dynamicBookingData)
-      .then((response) => {
-        // Handle success, e.g., redirect to a confirmation page
-        console.log("Booking created successfully:", response);
-      })
-      .catch((error) => {
-        // Handle error
-        console.error("Error creating booking:", error);
-      });
+    console.log("All Trains:", trains);
+    console.log(trainName);
+    const selectedTrain = trains.find((train) => train.trainName === trainName);
+
+    if (!selectedTrain) {
+      console.error("Selected train not found");
+      return;
+    }
+
+    console.log("passengerName:", passengerName);
+    const selectedPassenger = passengers.find((passenger) => {
+      const fullName = `${passenger.firstName} ${passenger.lastName}`;
+      return fullName.toLowerCase() === passengerName.trim().toLowerCase();
+    });
+
+    console.log(selectedPassenger);
+
+    if (selectedPassenger) {
+      const bookingData = {
+        bookingId: selectedPassenger.passengerID,
+        trainId: selectedTrain.trainId,
+        passengerId: selectedPassenger.passengerID,
+        travelDate: new Date().toISOString(),
+        bookingDate: new Date().toISOString(),
+        totalSeats: passengerList.length,
+        TrainAppBookingPassengers: passengerList.map((passenger, index) => ({
+          bookingPassengerId: index + 1,
+          bookingId: selectedPassenger.passengerID,
+          passengerName: passenger.passengerName,
+          seatNo: index + 1,
+          age: passenger.age,
+        })),
+      };
+
+      console.log("Booking Data:", bookingData);
+
+      TicketService.bookTrain(bookingData)
+        .then((response) => {
+          console.log("Train booked successfully:", response);
+        })
+        .catch((error) => {
+          console.error("Error booking train:", error);
+        });
+      // Clear input fields after the booking is created
+    //   setPassengerName("");
+    //   setPassengerAge("");
+      if(bookingData.TrainAppBookingPassengers.length>0){
+        navigate(`/payment/${bookingData.bookingId}/${bookingData.TrainAppBookingPassengers.length}`);
+      }else{
+        alert("Select passengers!");
+      }
+    } else {
+      console.error("No matching passenger found for the provided name");
+    }
   };
 
   return (
     <div className="booking">
-      <h2>Booking Page</h2>
-      <p>Booking for train: {bookingId}</p>
-      {/* Display booking details if available */}
-      {bookingDetails && (
-        <div>
-          <h3>Booking Ticket</h3>
-          {/* Display booking details here */}
-        </div>
-      )}
-      <div className="bookinginput row pt-1">
-        <input
-          type="text"
-          placeholder="Name"
-          required
-          className="col-md-6 mr-md-2"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          required
-          className="col-md-6"
-        />
-        <button className="btn col-md-6">add</button>
-      </div>
-      <div>
-        <table class="booking-table table-bordered">
+      <p>Booking for train: {trainName}</p>
+      <Form>
+        <FormGroup className="bookinginput">
+          <input
+            type="text"
+            placeholder="Passenger Name"
+            value={passengerName}
+            onChange={(e) => setPassengerName(e.target.value)}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Passenger Age"
+            value={passengerAge}
+            onChange={(e) => setPassengerAge(e.target.value)}
+            required
+          />
+          <Button type="button" onClick={handleAddPassenger}>
+            Add Passenger
+          </Button>
+        </FormGroup>
+      </Form>
+      {passengerList.length > 0 && (
+        <Table className="booking-table"> 
           <thead>
             <tr>
-              <th>Sr </th>
               <th>Passenger Name</th>
               <th>Age</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              {/* <td>{{sr+1}}</td>
-                                    <td>{{paswenger.passengerName}}</td>
-                                    <td>{{paswenger.age}}</td> */}
-              <td>14</td>
-              <td>adad</td>
-              <td>25</td>
-              <td>
-                <button className="bookbtn"> Remove</button>
-              </td>
-            </tr>
+            {passengerList.map((passenger, index) => (
+              <tr key={index}>
+                <td>{passenger.passengerName}</td>
+                <td>{passenger.age}</td>
+              </tr>
+            ))}
           </tbody>
-        </table>
-      </div>
-      <button className="btn col-md-6">Create Booking</button>
+        </Table>
+      )}
+      <Button type="button" onClick={handleCreateBooking}>
+        Create Booking
+      </Button>
     </div>
   );
 };

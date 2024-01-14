@@ -7,6 +7,7 @@ import Login from '../Pages/Login';
 import Register from '../Pages/Register';
 import Trains from '../Pages/Trains'
 import Booking from '../Pages/Booking';
+import Payment from '../Pages/Payment'
 
 const AppRoutes = () => {
   return (
@@ -22,7 +23,8 @@ const AppRoutes = () => {
         <Route path = '/trains' element ={<Trains/>}/>
         <Route path = '/login' element ={<Login/>}/>
         <Route path = '/register' element ={<Register/>}/>
-        <Route path = '/booking/:bookingId' element ={<Booking/>}/>
+        <Route path = '/booking/:trainName' element ={<Booking/>}/>
+        <Route path = '/payment/:bookingId/:seats' element ={<Payment/>}/>
     </Routes>
     </div>
   )

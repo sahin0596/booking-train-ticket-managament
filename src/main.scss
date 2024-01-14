@@ -123,6 +123,7 @@ h2{
 .display{
     padding-top: 10rem;
     padding-bottom: 3rem;
+    min-height: 75vh;
 }
 
 
@@ -148,12 +149,42 @@ h2{
             gap: 1rem;
             span{
                 color: var(--blackColor);
-                font-size: 11px;
+                font-size: 16px;
                 cursor: pointer;
                 &:hover{
                     color: var(--PrimaryColor);
                     font-size: 700;
                 }
+                .user{
+                    font-weight: bold;
+                    font-size: 16px; 
+                }
+            }
+        }
+        .profile-popup {
+            position: fixed;
+            top: 40px;
+            right: 0;
+            background-color: var(--greyBg);
+            border: 1px solid #ccc;
+            border-radius: 1rem;
+            padding: 20px;
+            margin-right: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            div {
+                margin-bottom: 8px;
+            }
+            button{
+                margin-right: 10px;
+                background-color: #007bff; /* Button background color */
+                color: #fff; /* Button text color */
+                padding: 8px 12px;
+                border: none;
+                cursor: pointer;
+            }
+            .delete{
+                background-color: #f01d1d;;
             }
         }
     }
@@ -519,7 +550,7 @@ h2{
         }
     }
     .booking-table {
-        width: 10%;
+        width: 30%;
         
         border-collapse: collapse;
         margin-top: 2rem;
