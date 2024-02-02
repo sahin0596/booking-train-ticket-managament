@@ -30,7 +30,8 @@ const Header = () => {
   const navigate = useNavigate();
   const {user, dispatch} = useContext(AuthContext) // for Auth
   const logout = () => {
-    dispatch({type:'LOGOUT'})
+    dispatch({type:'LOGOUT'});
+    // localStorage.removeItem("token");
     navigate('/home')
   } //for auth
 
@@ -103,16 +104,16 @@ const Header = () => {
             <>
               <div className='atb flex'>
               <span className='user' onClick={toggleProfilePopup}>
-                {user.firstName + user.lastName}
+                {user.name}
               </span>
               {showProfilePopup && (
                 <div className="profile-popup">
                   {/* Your profile details go here */}
-                  <div>Username: {user.firstName + user.lastName}</div>
+                  <div><b>{user.roles}</b></div>
+                  <div>Username: {user.name}</div>
                   <div>Email: {user.email}</div>
-                  
                     <button className='btn' onClick={logout}>Logout</button>
-                    <button className='btn delete' onClick={deletePassenger}>Delete</button>
+                    {/* <button className='btn delete' onClick={deletePassenger}>Delete</button> */}
     
                 </div>
               )}

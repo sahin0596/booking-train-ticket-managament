@@ -27,7 +27,7 @@ const Payment = () => {
 
   const generateQRCode = () => {
     // Generate a mock UPI URL with the booking ID, amount, and seats
-    const upiUrl = `upi://pay?pa=example@upi&pn=Merchant&mc=123456&tid=${transactionId}&tr=${bookingId}&tn=Booking&am=${amount}&cu=INR&url=https://example.com&seats=${seats}`;
+    const upiUrl = `upi://pay?pa=myselfrohitdey@okicici&pn=Merchant&mc=123456&tid=${transactionId}&tr=${bookingId}&tn=Booking&am=${amount}&cu=INR&url=https://example.com&seats=${seats}`;
 
     return upiUrl;
   };

@@ -76,14 +76,14 @@ const Search = () => {
 
   const filteredTrainDetails = trains.filter((train) => {
     return (
-      train.departureStationName
+      train.startingStation
         .toLowerCase()
         .includes(searchFrom.toLowerCase()) &&
-      train.arrivalStationName.toLowerCase().includes(searchTo.toLowerCase()) &&
-      // (selectedCoach === '' || train.Type.toLowerCase() === selectedCoach.toLowerCase()) &&
+      train.endingStation.toLowerCase().includes(searchTo.toLowerCase()) &&
+      (selectedCoach === '' || train.classes.some(coach => coach.className.toLowerCase() === selectedCoach.toLowerCase())) &&
       (!requiredSeats ||
-        train.totalSeats - train.bookedSeats >= parseInt(requiredSeats, 10)) &&
-      (!searchDate || new Date(train.departureDate) >= new Date(searchDate))
+        train.totalSeats - train.bookedSeats >= parseInt(requiredSeats, 10)) 
+      // (!searchDate || new Date(train.departureDate) >= new Date(searchDate))
     );
   });
 
@@ -156,7 +156,7 @@ const Search = () => {
             </div>
           </div>
           {/* Single Input */}
-          <div className="singleInput flex">
+          {/* <div className="singleInput flex">
             <div className="iconDiv">
               <MdOutlineDateRange className="icon" />
             </div>
@@ -169,7 +169,7 @@ const Search = () => {
                 onChange={(e) => setSearchDate(e.target.value)}
               />
             </div>
-          </div>
+          </div> */}
           {/* <button className='btn btnBlock'>Search Trains</button> */}
         </div>
         {searchFrom || searchTo ? (

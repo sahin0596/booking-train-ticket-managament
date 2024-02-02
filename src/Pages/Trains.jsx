@@ -9,16 +9,16 @@ const Trains = () => {
   useEffect(() => {
     TicketService.getAllTrains()
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setTrains(data);
         const newHeaders = data.length > 0 ? Object.keys(data[0]) : [];
         setHeaders(newHeaders);
       })
       .catch((error) => {
-        console.error(error);
+        // console.error(error);
       });
   }, []);
-
+  console.log(trains);
   return (
     <>
       <div className="trains">
