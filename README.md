@@ -11,4 +11,29 @@ Currently, two official plugins are available:
 
 ## Train-Ticket-Management:
 
-![Web capture_14-1-2024_163110_localhost](https://github.com/Myself-Rohit-Dey/Train-Ticket-Management/assets/75258734/6c415d21-57f7-4f76-802d-c6288222a5b5)
+Webpage(Frontend-UI) : [Train-Ticket-Management](https://trainticketm.netlify.app)
+- **Tech stacks :** React js, Springboot,
+- **Frontend :** react.js, javascript, node.js, sass.css, axios
+- **Backend :** springboot, jwt, swagger, eureka.
+  
+
+*Want to run it localy !!!*
+## Setup and run:
+*For running on localhost:*
+
+*FRONTEND :* **Go to client directory in terminal then:**
+```bash
+npm install
+npm run dev
+```
+*BACKEND:* **Go to server directory in terminal then**
+- Open the e-ticket-management folder in intelliJ or any other springboot IDE **(JAVA21 is required)**. Run the main .java file in src/java/com/madeeasy/*.java  for all the services.
+
+OR,
+
+- Go to the JAR folder run all jar file individually 
+```bash
+java -jar filename.jar
+```
+## Snapshot:
+![Frontend-UI](https://github.com/Myself-Rohit-Dey/Train-Ticket-Management/assets/75258734/6c415d21-57f7-4f76-802d-c6288222a5b5 | width=512)
