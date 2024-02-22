@@ -35,4 +35,4 @@ OR,
 java -jar filename.jar
 ```
 ## Snapshot:
-![Frontend-UI](https://github.com/Myself-Rohit-Dey/Train-Ticket-Management/assets/75258734/6c415d21-57f7-4f76-802d-c6288222a5b5 | width=512)
+![Frontend-UI](https://github.com/Myself-Rohit-Dey/Train-Ticket-Management/assets/75258734/6c415d21-57f7-4f76-802d-c6288222a5b5)
