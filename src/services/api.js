@@ -89,7 +89,7 @@ import axios from "axios";
 
 
 const API_BASE_URL = "http://192.168.137.1";
-const token = sessionStorage.getItem('token');
+const token = localStorage.getItem('token');
 const config = {
   headers: {
     'Authorization': token ? `Bearer ${token}` : null,
@@ -109,7 +109,7 @@ const TicketService = {
         throw error;
       });
   },
-  addUpdatePassengers: (passengerData) => {
+  addPassengers: (passengerData) => {
     return axios
       .post(`${API_BASE_URL}:9568/user-service/create-user`, passengerData)
       .then((response) => response.data)
@@ -132,7 +132,6 @@ const TicketService = {
         throw error;
       });
   },
-
   getAllTrains: () => {
     // console.log('Token:', token);
     return axios
@@ -143,8 +142,101 @@ const TicketService = {
         throw error;
       });
   },
+  getTrainBetweenStations: (start,end) => {
+    return axios
+      .get(
+        `${API_BASE_URL}:5489/train-service/trains/${encodeURIComponent(start)}/${encodeURIComponent(end)}`
+      )
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error("Error getting train:", error);
+        throw error;
+      });
+  },
+  getTrainById: (id) => {
+    return axios
+      .get(`${API_BASE_URL}:5489/train-service/${id}`, config)
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error("Error getting trainbyId:", error);
+        throw error;
+      });
+  },
+  bookTicket: (tickets, bookingData) => {
+    return axios
+      .post(`${API_BASE_URL}:6485/ticket-service/book/tickets/${encodeURIComponent(tickets)}`,bookingData, config)
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error("Error bookingTicket:", error);
+        throw error;
+      });
+  },
+  getStatus: (pnr) => {
+    return axios
+      .get(`${API_BASE_URL}:6485/ticket-service/check-tickets-status/by/pnr-number/${encodeURIComponent(pnr)}`, config)
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error("Error getting ticket status:", error);
+        throw error;
+      });
+  },
+  getStatus: (pnr) => {
+    return axios
+      .get(`${API_BASE_URL}:6485/ticket-service/check-tickets-status/by/pnr-number/${encodeURIComponent(pnr)}`, config)
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error("Error getting ticket status:", error);
+        throw error;
+      });
+  },
+  cancelTicket: (pnr) => {
+    return axios
+      .delete(`${API_BASE_URL}:6485/ticket-service/cancel/tickets/${encodeURIComponent(pnr)}`, config)
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error("Error getting ticket status:", error);
+        throw error;
+      });
+  },
+
+
+
+  //ADMIN
+  createTrain: (train) => {
+    return axios
+      .post(`${API_BASE_URL}:5489/train-service/create`,train, config)
+      .then((response)=>response.data)
+      .catch((error)=>{
+        console.error("Error getting ticket status:", error);
+        throw error;
+      })
+  },
+  getAllUsers: () => {
+    return axios
+      .get(`${API_BASE_URL}:9568/user-service/get-all-users`, config)
+      .then((response)=>response.data)
+      .catch((error)=>{
+        console.error("Error getting ticket status:", error);
+        throw error;
+      })
+  },
+  getAllTickets: (trainNumber) => {
+    // console.log('Token:', token);
+    return axios
+      .get(`${API_BASE_URL}:6485/ticket-service/get-all/by/train-number/${encodeURIComponent(trainNumber)}`, config)
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error("Error fetching tickets:", error);
+        throw error;
+      });
+  },
   
 
+
+
+
+
+  //not implemented
   addBulkTrainStations: (data) => {
     return axios
       .post(`${API_BASE_URL}/AddBulkTrainStations`, data)

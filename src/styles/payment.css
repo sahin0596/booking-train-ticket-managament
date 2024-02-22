@@ -24,4 +24,7 @@
 }
 .payment-container button:hover {
   background-color: #45a049;
+}
+.payment-container .pnr-list button {
+  margin: 10px;
 }/*# sourceMappingURL=payment.css.map */

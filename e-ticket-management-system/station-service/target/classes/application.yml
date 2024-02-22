@@ -34,4 +34,4 @@ springdoc:
       enabled: true
     path: /station-service/v3/api-docs
   swagger-ui:
-    enabled: true
+    enabled: false

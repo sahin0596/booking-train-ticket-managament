@@ -392,12 +392,7 @@ h2 {
   color: var(--blackColor);
   font-weight: bold;
 }
-.search .sectionContainer .details-table tr:nth-child(even) {
-  background-color: var(--greyBg);
-}
 .search .sectionContainer .details-table tr:hover {
-  background-color: var(--PrimaryColor);
-  color: var(--whiteColor);
   font-weight: 500;
   transition: 0.4s ease;
 }
@@ -471,11 +466,42 @@ p:only-child + .search .sectionContainer .details-table, .search .sectionContain
   text-align: left;
   padding: 0rem 2rem 2rem 2rem;
 }
+.trains h1 {
+  text-align: center;
+  padding-bottom: 30px;
+}
 .trains .trainsmainText {
   color: var(--blackColor);
   font-weight: 700;
   font-size: 15px;
   line-height: 2.5 rem;
+}
+.trains .btns {
+  background: var(--SecondayColor);
+  padding: 0.5rem;
+  border-radius: 1rem;
+  flex-direction: row;
+  width: 60%;
+  margin: auto;
+  row-gap: 0.5rem;
+}
+.trains .btns .singleBtn {
+  padding: 0.8rem 1.5rem;
+  font-size: 13px;
+  border-radius: 3rem;
+  width: 80%;
+  text-align: center;
+}
+.trains .btns .singleBtn:hover {
+  background: var(--PrimaryColor);
+  color: var(--whiteColor);
+  font-weight: 500;
+  transition: 0.4s ease;
+}
+.trains .btns .active {
+  background: var(--PrimaryColor);
+  color: var(--whiteColor);
+  font-weight: 500;
 }
 .trains .details-table {
   width: 95%;
@@ -499,34 +525,394 @@ p:only-child + .trains .details-table, .trains .details-table:empty {
 }
 
 .booking {
-  text-align: left;
-  padding: 0rem 2rem 2rem 2rem;
+  display: flex;
+  justify-content: center;
 }
-.booking .bookinginput input {
+.booking .sectionContainer {
+  width: 90%;
+  padding: 1.5rem;
+  border: 5px solid var(--greyBg);
+  border-radius: 16px;
+  row-gap: 2rem;
+}
+.booking .sectionContainer .ticketsinput {
+  display: flex;
+  justify-content: center;
+}
+.booking .sectionContainer .ticketsinput input {
+  width: 91%;
+  margin: 0.55rem;
+  padding: 0.5rem;
+}
+.booking .sectionContainer .bookinginput {
+  display: flex;
+  justify-content: center;
+}
+.booking .sectionContainer .bookinginput input {
+  width: 40%;
   margin: 0.5rem;
   padding: 0.5rem;
 }
-.booking .booking-table {
-  width: 30%;
+.booking .sectionContainer .bookinginput button {
+  min-width: 150px;
+  width: 10%;
+}
+.booking .sectionContainer .booking-table {
+  width: 70%;
+  margin: auto;
   border-collapse: collapse;
   margin-top: 2rem;
+  font-size: x-large;
+  text-align: center;
 }
-.booking .booking-table th, .booking .booking-table td {
+.booking .sectionContainer .booking-table th, .booking .sectionContainer .booking-table td {
   padding: 1rem;
   border: 1px solid var(--greyBg);
 }
-.booking .booking-table th {
+.booking .sectionContainer .booking-table th {
   background-color: var(--SecondayColor);
   color: var(--blackColor);
   font-weight: bold;
 }
-.booking .booking-table tr:nth-child(even) {
+.booking .sectionContainer .booking-table tr:nth-child(even) {
   background-color: var(--greyBg);
 }
-p:only-child + .booking .booking-table, .booking .booking-table:empty {
+p:only-child + .booking .sectionContainer .booking-table, .booking .sectionContainer .booking-table:empty {
   display: none;
 }
+.booking .sectionContainer .booking-btn {
+  display: flex;
+  justify-content: center;
+}
+.booking .sectionContainer .booking-btn button {
+  width: 70%;
+}
 
+.pnr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+.pnr h2 {
+  text-align: center;
+}
+.pnr .pnr-input {
+  display: flex;
+  justify-content: center;
+}
+.pnr .pnr-input input {
+  flex: 1;
+  width: 40%;
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+.pnr .check-button {
+  display: flex;
+  justify-content: center;
+}
+.pnr .details-card {
+  width: 90%;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+.pnr .details-card .details-body {
+  display: flex;
+  justify-content: space-between;
+}
+.pnr .details-card .details-body .details-row {
+  display: flex;
+  align-items: stretch;
+}
+.pnr .details-card .details-body .dotted-line {
+  border-left: 1px dotted #000;
+  margin: 0 20px;
+}
+.pnr .details-card .details-body .card-text {
+  padding: 10px;
+}
+.pnr .details-card .details-body .passenger {
+  min-width: 100px;
+  width: 25%;
+  margin-right: 10px;
+}
+.pnr .details-card .details-body .status {
+  filter: drop-shadow(2px 2px rgba(0, 0, 0, 0.1));
+  /* Add this to your CSS styles */
+}
+.pnr .details-card .details-body .status strong {
+  padding: 5px 10px;
+}
+.pnr .details-card .details-body .status .cancel-button {
+  background-color: transparent;
+  border: none;
+  color: red;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: medium;
+}
+.pnr .details-card .details-body .status .cancel-button:hover {
+  background-color: red;
+  color: white;
+}
+.pnr .card-body {
+  padding: 20px;
+}
+.pnr .pnr-heading {
+  text-align: center;
+}
+.pnr .cancel-ticket {
+  margin: auto;
+}
+
+.not-found {
+  margin-top: 100px;
+  font-size: xx-large;
+  text-align: center;
+}
+
+.admin {
+  margin-top: 100px;
+  font-size: xx-large;
+  text-align: center;
+}
+
+/* Add this CSS to your stylesheets or use a CSS-in-JS solution */
+.dashboard {
+  display: flex;
+}
+.dashboard .sidebar {
+  height: 100vh;
+  margin-left: 10px;
+  width: 200px;
+  background-color: rgba(97, 125, 133, 0.5882352941);
+  padding: 15px;
+  border-radius: 10px;
+}
+.dashboard .sidebar ul {
+  padding-top: 10px;
+}
+.dashboard .sidebar ul .list-group-item {
+  cursor: pointer;
+  padding: 8px;
+  list-style-type: none;
+  margin-bottom: 5px;
+  background-color: #fff; /* Background color for each list item */
+  border-radius: 5px;
+}
+.dashboard .sidebar ul .list-group-item .list-group-item:hover {
+  background-color: #e9ecef; /* Background color on hover */
+}
+.dashboard .content {
+  flex: 1;
+  padding: 0px 15px;
+}
+
+.manage-trains .train-details-table {
+  width: 95%;
+  border-collapse: collapse;
+}
+.manage-trains .train-details-table th, .manage-trains .train-details-table td {
+  padding: 1rem;
+  border: 1px solid var(--greyBg);
+}
+.manage-trains .train-details-table th {
+  background-color: var(--SecondayColor);
+  color: var(--blackColor);
+  font-weight: bold;
+}
+.manage-trains .train-details-table tr:nth-child(even) {
+  background-color: var(--greyBg);
+}
+p:only-child + .manage-trains .train-details-table, .manage-trains .train-details-table:empty {
+  display: none;
+}
+.manage-trains .create-trains {
+  /* AddTrainForm.css */
+  width: 95%;
+  margin-top: 30px;
+}
+.manage-trains .create-trains .train-input, .manage-trains .create-trains .class-input, .manage-trains .create-trains .coach-input, .manage-trains .create-trains .stop-input {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+}
+.manage-trains .create-trains .train-input label, .manage-trains .create-trains .class-input label, .manage-trains .create-trains .coach-input label, .manage-trains .create-trains .stop-input label {
+  width: 90%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.manage-trains .create-trains .train-input label input, .manage-trains .create-trains .class-input label input, .manage-trains .create-trains .coach-input label input, .manage-trains .create-trains .stop-input label input {
+  width: 100%;
+  min-width: 400px;
+  padding: 8px;
+  margin: 10px;
+}
+.manage-trains .create-trains .train-input button, .manage-trains .create-trains .class-input button, .manage-trains .create-trains .coach-input button, .manage-trains .create-trains .stop-input button {
+  width: 400px;
+  margin: 10px;
+  padding: 10px;
+}
+.manage-trains .create-trains h3 {
+  margin-top: 30px;
+}
+.manage-trains .create-trains .dynamic-table {
+  width: 100%;
+  margin: auto;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+.manage-trains .create-trains .dynamic-table th, .manage-trains .create-trains .dynamic-table td {
+  padding: 1rem;
+  border: 1px solid var(--greyBg);
+}
+.manage-trains .create-trains .dynamic-table th {
+  background-color: var(--SecondayColor);
+  color: var(--blackColor);
+  font-weight: bold;
+}
+.manage-trains .create-trains .dynamic-table tr:hover {
+  font-weight: 500;
+  transition: 0.4s ease;
+}
+p:only-child + .manage-trains .create-trains .dynamic-table, .manage-trains .create-trains .dynamic-table:empty {
+  display: none;
+}
+.manage-trains .create-trains .submit-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.manage-trains .create-trains .display-msg {
+  font-size: x-large;
+  text-align: center;
+  padding-top: 30px;
+}
+
+.manage-users .user-details-table {
+  width: 95%;
+  border-collapse: collapse;
+}
+.manage-users .user-details-table th, .manage-users .user-details-table td {
+  padding: 1rem;
+  border: 1px solid var(--greyBg);
+}
+.manage-users .user-details-table th {
+  background-color: var(--SecondayColor);
+  color: var(--blackColor);
+  font-weight: bold;
+}
+.manage-users .user-details-table tr:nth-child(even) {
+  background-color: var(--greyBg);
+}
+p:only-child + .manage-users .user-details-table, .manage-users .user-details-table:empty {
+  display: none;
+}
+.manage-users .user-input {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 3;
+  align-items: baseline;
+}
+.manage-users .user-input .form-group {
+  display: flex;
+  flex-direction: row;
+}
+.manage-users .user-input .form-group input {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.manage-users .user-input .form-group select {
+  width: 100px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+.manage-users .user-input .form-group .auth_btn {
+  margin: auto;
+  width: 300px;
+  border-radius: 20px;
+}
+
+/* ManageTickets.css */
+.manage-tickets h3 {
+  margin: 20px 0px 20px 0px;
+}
+.manage-tickets .ticket-details {
+  padding: 20px 0px 20px 0px;
+}
+.manage-tickets .ticket-details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.manage-tickets .ticket-details-table th, .manage-tickets .ticket-details-table td {
+  padding: 1rem;
+  border: 1px solid var(--greyBg);
+}
+.manage-tickets .ticket-details-table th {
+  text-align: center;
+  background-color: var(--SecondayColor);
+  color: var(--blackColor);
+  font-weight: bold;
+}
+.manage-tickets .ticket-details-table tr:nth-child(even) {
+  background-color: var(--greyBg);
+}
+p:only-child + .manage-tickets .ticket-details-table, .manage-tickets .ticket-details-table:empty {
+  display: none;
+}
+.manage-tickets .ticket-details-table .cancel-button {
+  background-color: transparent;
+  border: none;
+  color: red;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: medium;
+}
+.manage-tickets .ticket-details-table .cancel-button:hover {
+  background-color: red;
+  color: white;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+/* Add your CSS styles for the cancel message animation here */
+.cancel-msg {
+  color: red;
+  font-weight: bold;
+  animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
 @media screen and (min-width: 480px) {
   .footer .sectionContainer {
     align-items: flex-start;

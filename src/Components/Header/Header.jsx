@@ -31,8 +31,9 @@ const Header = () => {
   const {user, dispatch} = useContext(AuthContext) // for Auth
   const logout = () => {
     dispatch({type:'LOGOUT'});
-    // localStorage.removeItem("token");
-    navigate('/home')
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate('/')
   } //for auth
 
   const[act,setAct] = useState('')
@@ -142,10 +143,12 @@ const Header = () => {
           <ul className="menu flex ">
           {navLinks.map((Links) => (
           <li key={Links.id} className={`listItem ${act === Links.title ? 'active' : 'inactive'}`} onClick={()=>{removeNavBar();setAct(Links.title);scrollToSection(Links.id);}} >
-            <Link to={`/home/#${Links.id}`}>{Links.title}</Link>
+            <Link to={`/#${Links.id}`}>{Links.title}</Link>
           </li>
           ))}
-          <li className="listItem"><Link to="/trains">Train</Link></li>
+          <li className="listItem"><Link to="/trains">Trains</Link></li>
+          <li className="listItem"><Link to="/pnr">PNR</Link></li>
+          {user && user.roles.includes("ADMIN") && (<li className="listItem"><Link to="/admin/dashboard">Dashboard</Link></li>)}
           </ul>
           <button onClick={removeNavBar} className="btn flex btnOne">
             <a href="https://mail.google.com/mail/#inbox/?compose=DmwnWrRlRQkzvCPsNRwRhkqnmlCRdHzRcRQqHsQQLcfDdxrNKDwwflQCfbfrLGWmpMDTKRmfxrVQ" target='_blank'>mail</a>

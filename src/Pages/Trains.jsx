@@ -5,6 +5,7 @@ import Train from "../Components/Train/Train";
 const Trains = () => {
   const [trains, setTrains] = useState([]);
   const [headers, setHeaders] = useState([]);
+  const [selectedCoach, setSelectedCoach] = useState("");
 
   useEffect(() => {
     TicketService.getAllTrains()
@@ -19,13 +20,42 @@ const Trains = () => {
       });
   }, []);
   console.log(trains);
+
+  const filteredTrainDetails = trains.filter((train) => {
+    return (
+      (selectedCoach === '' || train.classes.some(coach => coach.className.toLowerCase() === selectedCoach.toLowerCase()))
+    );
+  });
+
   return (
     <>
       <div className="trains">
         <div className="trainsmaintext">
           <h1>All Trains</h1>
         </div>
-        <Train trains={trains} headers={headers} />
+        <div className="btns flex">
+          <div
+            className={`singleBtn ${selectedCoach === "AC" ? "active" : ""}`}
+            onClick={() => setSelectedCoach("AC")}
+          >
+            <span>AC Coach</span>
+          </div>
+          <div
+            className={`singleBtn ${
+              selectedCoach === "General" ? "active" : ""
+            }`}
+            onClick={() => setSelectedCoach("General")}
+          >
+            <span>General Coach</span>
+          </div>
+          <div
+            className={`singleBtn ${selectedCoach === "Sleeper" ? "active" : ""}`}
+            onClick={() => setSelectedCoach("Sleeper")}
+          >
+            <span>Sleeper Coach</span>
+          </div>
+        </div>
+        <Train trains={filteredTrainDetails} headers={headers} type={selectedCoach}/>
       </div>
     </>
   );

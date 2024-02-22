@@ -143,34 +143,65 @@ const Login = () => {
 
     dispatch({ type: "LOGIN_START" });
 
-    try {
-      console.log(credentials.email);
-      console.log(credentials.password);
-      const user = await TicketService.getUserByEmail(credentials.email);
+    TicketService.getUserByEmail(credentials.email)
+    .then((data)=>{
+      const user = data;
       console.log(user);
+      TicketService.authenticateUser(credentials.email, credentials.password)
+      .then((data)=>{
+        const token = data.accessToken;
+        console.log(token);
+        if(token){
+          dispatch({ type: "LOGIN_SUCCESS", payload: {user, token} });
+          if (user.roles && user.roles.includes("ADMIN")) {
+            navigate("/admin");
+          } else {
+            navigate("/");
+          }
+        }else{
+          setError("Invalid password");
+        }
+      })
+      .catch((error)=>{
+        setError("Invalid password");
+      }) 
+    })
+    .catch((error)=>{
+      setError("Invalid email");
+    }) 
+
+    // try {
+    //   console.log(credentials.email);
+    //   console.log(credentials.password);
+    //   const user = await TicketService.getUserByEmail(credentials.email);
+    //   console.log(user);
       
-      if (user) {
-        const tokenObject = await TicketService.authenticateUser(credentials.email, user.password);
-        const token = tokenObject.accessToken;
-        console.log(token)
-        
-        // const user = {
-        //   email: credentials.email,
-        //   // Add other user details if available in the response
-        // };
-        dispatch({ type: "LOGIN_SUCCESS", payload: {user, token} });
+    //   if (user) {
+    //     const tokenObject = await TicketService.authenticateUser(credentials.email, credentials.password);
+    //     const token = tokenObject.accessToken;
+    //     console.log(token)
+    //     if(token){
+    //     // const user = {
+    //     //   email: credentials.email,
+    //     //   // Add other user details if available in the response
+    //     // };
+    //     dispatch({ type: "LOGIN_SUCCESS", payload: {user, token} });
 
-        // Save the JWT token in local storage
-        // localStorage.setItem("token", authToken);
+    //     // Save the JWT token in local storage
+    //     // localStorage.setItem("token", authToken);
 
-        navigate("/home");
-      } else {
-        setError("Invalid email or password");
-      }
-    } catch (error) {
-      console.error("Error authenticating user", error);
-      dispatch({ type: "LOGIN_FAILURE", payload: error.message });
-    }
+    //     navigate("/");
+    //     }
+    //     else{
+    //       setError("Invalid password");
+    //     }
+    //   } else {
+    //     setError("Invalid email");
+    //   }
+    // } catch (error) {
+    //   console.error("Error authenticating user", error);
+    //   dispatch({ type: "LOGIN_FAILURE", payload: error.message });
+    // }
   };
 
   return (

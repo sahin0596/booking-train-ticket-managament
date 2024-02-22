@@ -406,12 +406,12 @@ h2{
                 font-weight: bold;
             }
             tr{
-                &:nth-child(even){
-                    background-color: var(--greyBg);
-                }
+                // &:nth-child(even){
+                //     background-color: var(--greyBg);
+                // }
                 &:hover{
-                    background-color: var(--PrimaryColor);
-                    color: var(--whiteColor);
+                    // background-color: var(--PrimaryColor);
+                    // color: var(--whiteColor);
                     font-weight: 500;
                     transition: 0.4s ease;
                 }
@@ -428,7 +428,7 @@ h2{
 .footer{
     // position: fixed;
     // bottom: 0;
-    // width: 100%;
+    // min-width: 100%;
     // padding-bottom: 0rem;
     background: var(--SecondayColor);
     .sectionContainer{
@@ -501,11 +501,43 @@ h2{
     padding: 0rem 2rem 2rem 2rem;
     // margin-left: 2rem;
     // margin-bottom: auto;
+    h1{
+        text-align: center;
+        padding-bottom: 30px;
+    }
     .trainsmainText{
         color: var(--blackColor);
         font-weight: 700;
         font-size: 15px;
         line-height: 2.5 rem;
+    }
+    .btns{
+        background: var(--SecondayColor);
+        padding: .5rem;
+        border-radius: 1rem;
+        flex-direction: row;
+        width: 60%;
+        margin: auto;
+        row-gap: 0.5rem;
+        .singleBtn{
+            padding: .8rem 1.5rem;
+            font-size: 13px;
+            border-radius: 3rem;
+            width: 80%;
+            text-align: center;
+
+            &:hover{
+                background: var(--PrimaryColor);
+                color: var(--whiteColor);
+                font-weight: 500;
+                transition: .4s ease;
+            }
+        }
+        .active{
+            background: var(--PrimaryColor);
+            color: var(--whiteColor);
+            font-weight: 500;
+        }
     }
     .details-table {
         width: 95%;
@@ -540,20 +572,53 @@ h2{
 
 //Booking layout==>
 .booking{
-    text-align: left;
-    padding: 0rem 2rem 2rem 2rem;
-    .bookinginput{
-        // margin: 3rem;
+    display: flex;
+    justify-content: center;
+    .sectionContainer{
+        width: 90%;
+        padding: 1.5rem;
+        border: 5px solid var(--greyBg);
+        border-radius: 16px;
+        row-gap: 2rem;
+    .ticketsinput{
+        display: flex;
+        justify-content: center;
         input{
-            margin: 0.5rem;
+            // min-width: 670px;
+            width: 91%;
+            margin: 0.55rem;
             padding: 0.5rem;
         }
     }
+    .bookinginput{
+        // margin: 3rem;
+        display: flex;
+        justify-content: center;
+        input{
+            width:40%;
+            margin: 0.5rem;
+            padding: 0.5rem;
+        }
+        button{
+            min-width:150px;
+            width:10%;
+        }
+    }
+    // .sectionContainer{
+    //     width: 100%;
+    //     padding: 1.5rem;
+    //     border: 2px solid var(--greyBg);
+    //     border-radius: 16px;
+    //     row-gap: 2rem;
+    // }
+    
     .booking-table {
-        width: 30%;
-        
+        width: 70%;
+        margin: auto;
         border-collapse: collapse;
         margin-top: 2rem;
+        font-size: x-large;
+        text-align: center;
         th,td{
             padding: 1rem;
             border: 1px solid var(--greyBg);
@@ -578,7 +643,584 @@ h2{
             display: none;
         }
     }
+    .booking-btn{
+        display: flex;
+        justify-content: center;
+            // width: 80%;
+        button{
+            width: 70%;
+        }
+    }
+    }
 }
+
+//PNR
+.pnr{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    // .details-table {
+    //     width: 70%;
+    //     margin: auto;
+    //     border-collapse: collapse;
+    //     margin-top: 2rem;
+    //     // font-size: x-large;
+    //     text-align: center;
+    //     th,td{
+    //         padding: 1rem;
+    //         border: 1px solid var(--greyBg);
+    //     }
+    //     th{
+    //         background-color: var(--SecondayColor);
+    //         color: var(--blackColor);
+    //         font-weight: bold;
+    //     }
+    //     tr{
+    //         &:nth-child(even){
+    //             background-color: var(--greyBg);
+    //         }
+    //         // &:hover{
+    //         //     background-color: var(--PrimaryColor);
+    //         //     color: var(--whiteColor);
+    //         //     font-weight: 500;
+    //         //     transition: 0.4s ease;
+    //         // }
+    //     }
+    //     p:only-child+&, &:empty{
+    //         display: none;
+    //     }
+    // }
+    h2{
+        text-align: center;
+    }
+    .pnr-input {
+        display: flex;
+        justify-content: center;
+        input {
+          flex: 1;
+          width:40%;
+          margin: 0.5rem;
+          padding: 0.5rem;
+        }
+      }
+      .check-button {
+        display: flex;
+        justify-content: center;
+      }
+    .details-card {
+        width: 90%;
+        margin: 20px auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        .details-body {
+          display: flex;
+          justify-content: space-between;
+          .details-row {
+            display: flex;
+            align-items: stretch;
+          }
+          
+          .dotted-line {
+            border-left: 1px dotted #000;
+            // height: 100%;
+            margin: 0 20px;
+          }
+          .card-text{
+            
+            padding: 10px;
+            // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          }
+          .passenger{
+            min-width: 100px;
+            width:25%;
+            margin-right: 10px;
+            // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          }
+          .status {
+            // text-align: right;
+            
+            filter: drop-shadow( 2px 2px rgba(0, 0, 0, 0.1));
+            /* Add this to your CSS styles */
+            // display: flex;
+            // justify-content: right;
+            strong{
+                padding: 5px 10px;
+            }
+            .cancel-button {
+                background-color: transparent;
+                border: none;
+                color: red;
+                padding: 5px 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s, color 0.3s;
+                font-size: medium;
+            }
+            
+            .cancel-button:hover {
+                background-color: red;
+                color: white;
+            }     
+          }
+        }
+      }
+      .card-body {
+          padding: 20px;
+        }
+      
+      
+      .pnr-heading {
+        text-align: center;
+        // margin-bottom: 20px;
+        
+    }
+    .cancel-ticket{
+        margin: auto;
+    }
+    
+      
+      
+      
+      
+
+
+    // .pnr-heading {
+    //     margin-bottom: 20px;
+    //     font-size: 24px;
+    //     font-weight: bold;
+    // }
+    // .pnr-input {
+    //   margin-bottom: 20px;
+    // }
+    
+    // .details-card {
+    //   width: 100%;
+    //   max-width: 600px;
+    //   margin: 20px auto;
+    //   border: 1px solid #ccc;
+    //   border-radius: 8px;
+    //   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    // }
+    
+    // .details-card-body {
+    //   padding: 20px;
+    // }
+    
+    // .details-card-title {
+    //   font-size: 20px;
+    //   font-weight: bold;
+    //   margin-bottom: 15px;
+    // }
+    
+    // .details-card-text {
+    //   margin-bottom: 10px;
+    // }
+    
+    // .passengers-list {
+    //   list-style: none;
+    //   padding: 0;
+    //   margin: 0;
+    // }
+    
+    // .passenger-item {
+    //   margin-bottom: 10px;
+    // }
+    
+    // .statuses-list {
+    //   list-style: none;
+    //   padding: 0;
+    //   margin: 0;
+    // }
+    
+    // .status-item {
+    //   margin-bottom: 5px;
+    //   color: #4caf50; /* Green color for statuses */
+    // }
+}
+.not-found{
+    margin-top: 100px;
+    font-size: xx-large;
+    text-align: center;
+}
+
+//Admin
+.admin{
+    margin-top: 100px;
+    font-size: xx-large;
+    text-align: center;
+}
+/* Add this CSS to your stylesheets or use a CSS-in-JS solution */
+.dashboard {
+    display: flex;
+    // height: 100vh; /* Adjust as needed */
+    .sidebar {
+      height:100vh;
+      margin-left: 10px;
+      // height: 50vh;
+      // display: flex;
+      width: 200px;
+      background-color: #617d8596;
+      padding: 15px;
+      // border-radius: 0px 10px 10px 0px;
+      border-radius: 10px;
+      ul{
+          padding-top: 10px;
+  
+          .list-group-item {
+              cursor: pointer;
+              padding: 8px;
+              list-style-type: none;
+              margin-bottom: 5px;
+              background-color: #fff; /* Background color for each list item */
+              border-radius: 5px;
+              .list-group-item:hover {
+              background-color: #e9ecef; /* Background color on hover */
+              }
+          }
+          
+      }
+  
+    }
+    .content {
+    //   text-align: center;
+      flex: 1;
+      padding: 0px 15px;
+    }
+  
+}
+.manage-trains{
+    .train-details-table{
+        width: 95%;
+        // margin: 1rem;
+        border-collapse: collapse;
+        // margin-top: 2rem;
+        th,td{
+            padding: 1rem;
+            border: 1px solid var(--greyBg);
+        }
+        th{
+            background-color: var(--SecondayColor);
+            color: var(--blackColor);
+            font-weight: bold;
+        }
+        tr{
+            &:nth-child(even){
+                background-color: var(--greyBg);
+            }
+            // &:hover{
+            //     background-color: var(--PrimaryColor);
+            //     color: var(--whiteColor);
+            //     font-weight: 500;
+            //     transition: 0.4s ease;
+            // }
+        }
+        p:only-child+&, &:empty{
+            display: none;
+        }
+    }
+    .create-trains{
+        /* AddTrainForm.css */
+        width: 95%;
+        margin-top: 30px;
+        // padding-right: 10px;
+        
+// .add-train-form {
+//     display: flex;
+//     flex-direction: row;
+//     width: 100%;
+    
+//     margin: 20px;
+//     .train-input{
+//         // display: flex;
+//         // flex-direction: column;
+//     }
+//   }
+  
+//   label {
+//     margin-top: 10px;
+//   }
+  
+//   input {
+//     width: 80%;
+//     padding: 8px;
+//     // margin-top: 5px;
+//     // margin-bottom: 10px;
+//     margin: 10px;
+//     box-sizing: border-box;
+//   }
+  
+//   button {
+//     background-color: #4caf50;
+//     color: white;
+//     padding: 10px;
+//     border: none;
+//     cursor: pointer;
+//   }
+  
+//   button:hover {
+//     background-color: #45a049;
+//   }
+  
+//   /* Styles for dynamically added elements */
+//   .added-section {
+//     border: 1px solid #ddd;
+//     padding: 10px;
+//     margin-top: 10px;
+//   }
+  
+//   .added-section label,
+//   .added-section input {
+//     margin-top: 5px;
+//     margin-bottom: 5px;
+//   }
+  
+//   .added-section button {
+//     background-color: #ff3333;
+//   }
+  
+//   .added-section button:hover {
+//     background-color: #e52d2d;
+//   }
+        .train-input, .class-input, .coach-input, .stop-input{
+            // width: 100%;
+            display: flex;
+            flex-direction: row;
+            // flex-grow: 1;
+            align-items: end;
+            // align-items:stretch;
+            // margin: auto;
+            label {
+                    // flex:1;
+                    width: 90%;
+                    margin-left: 10px;
+                    margin-right: 10px;
+                    input{
+                        width: 100%;
+                        min-width: 400px;
+                        padding: 8px;
+                        margin: 10px;
+                    }
+                    // margin-top: 5px;
+                    // margin-bottom: 10px;
+                    // box-sizing: border-box;
+            }
+            button{
+                
+                width: 400px;
+                margin: 10px;
+                // padding-top: 10px;
+                padding: 10px;
+            }
+        }
+        h3{
+            margin-top: 30px;
+        }
+        .dynamic-table {
+            width: 100%;
+            margin: auto;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            th,td{
+                padding: 1rem;
+                border: 1px solid var(--greyBg);
+            }
+            th{
+                background-color: var(--SecondayColor);
+                color: var(--blackColor);
+                font-weight: bold;
+            }
+            tr{
+                // &:nth-child(even){
+                //     background-color: var(--greyBg);
+                // }
+                &:hover{
+                    // background-color: var(--PrimaryColor);
+                    // color: var(--whiteColor);
+                    font-weight: 500;
+                    transition: 0.4s ease;
+                }
+            }
+            p:only-child+&, &:empty{
+                display: none;
+            }
+        }
+        .submit-btn{
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .display-msg{
+            font-size: x-large;
+            text-align: center;
+            padding-top: 30px;
+        }
+            
+    }
+}
+.manage-users{
+    .user-details-table{
+        width: 95%;
+        // margin: 1rem;
+        border-collapse: collapse;
+        // margin-top: 2rem;
+        th,td{
+            padding: 1rem;
+            border: 1px solid var(--greyBg);
+        }
+        th{
+            background-color: var(--SecondayColor);
+            color: var(--blackColor);
+            font-weight: bold;
+        }
+        tr{
+            &:nth-child(even){
+                background-color: var(--greyBg);
+            }
+            // &:hover{
+            //     background-color: var(--PrimaryColor);
+            //     color: var(--whiteColor);
+            //     font-weight: 500;
+            //     transition: 0.4s ease;
+            // }
+        }
+        p:only-child+&, &:empty{
+            display: none;
+        }
+    }
+    .user-input{
+        display: flex;
+        flex-direction: column;
+        flex-grow: 3;
+        align-items:baseline;
+        .form-group{
+            display: flex;
+            flex-direction: row;
+            input{
+                margin: 10px;
+                padding: 10px;
+                border-radius: 10px;
+            }
+            select{
+        
+                width: 100px;
+                margin-left: 10px;
+                margin-right: 10px;
+                // padding: 10px;
+                border-radius: 10px;
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                width: 100%;
+                box-sizing: border-box;
+                font-size: 16px;
+            }
+            .auth_btn{
+                margin:auto;
+                width: 300px;
+                border-radius: 20px;
+            }
+        }
+        
+        // .form-group{
+            // width: 10%;
+                    // input{
+                        // width: 60%;
+                        // padding: 8px;
+                        // margin: 10px;
+                    // }
+        // }
+    }
+}
+/* ManageTickets.css */
+.manage-tickets {
+    // max-height: 300px; /* Set the maximum height for the table container */
+    // overflow-y: auto; /* Enable vertical scrolling if needed */
+    h3{
+        margin: 20px 0px 20px 0px;
+    }
+    .ticket-details{
+        padding: 20px 0px 20px 0px;
+    }
+    .ticket-details-table{
+        width: 100%;
+        // margin: 1rem;
+        border-collapse: collapse;
+        // margin-top: 2rem;
+        th,td{
+            padding: 1rem;
+            border: 1px solid var(--greyBg);
+        }
+        th{
+            text-align: center;
+            background-color: var(--SecondayColor);
+            color: var(--blackColor);
+            font-weight: bold;
+        }
+        tr{
+            &:nth-child(even){
+                background-color: var(--greyBg);
+            }
+            // &:hover{
+            //     background-color: var(--PrimaryColor);
+            //     color: var(--whiteColor);
+            //     font-weight: 500;
+            //     transition: 0.4s ease;
+            // }
+        }
+        p:only-child+&, &:empty{
+            display: none;
+        }
+        .cancel-button {
+            background-color: transparent;
+            border: none;
+            color: red;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: medium;
+        }
+        
+        .cancel-button:hover {
+            background-color: red;
+            color: white;
+        }   
+    }
+}
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+/* Add your CSS styles for the cancel message animation here */
+.cancel-msg {
+    color: red;
+    font-weight: bold;
+    animation: fadeInOut 2s ease-in-out;
+  }
+  
+  @keyframes fadeInOut {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  
+  
+  
+
+
 
 //MEDIA Screen Styling=====>
 @media screen and (min-width: 480px) {
@@ -587,6 +1229,7 @@ h2{
     // }
     .footer{
         .sectionContainer{
+            
             align-items: flex-start;
             grid-template-columns: repeat(2,1fr);
             .footerLinks{
@@ -835,6 +1478,7 @@ h2{
             }
         }
     }
+    
 }
 @media screen and (min-width: 1440px) {
     

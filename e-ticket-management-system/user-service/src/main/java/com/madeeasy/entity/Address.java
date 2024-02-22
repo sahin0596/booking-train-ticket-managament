@@ -16,13 +16,13 @@ public class Address {
 
     @Id
     private String id;
-    @Column(length = 50, nullable = false)
+    @Column(length = 20, nullable = false)
     private String street;
     @Column(length = 15, nullable = false)
     private String city;
     @Column(length = 15, nullable = false)
     private String state;
-    @Column(length = 15, nullable = false)
+    @Column(length = 10, nullable = false)
     private String country;
 
     @OneToOne(cascade = CascadeType.ALL)

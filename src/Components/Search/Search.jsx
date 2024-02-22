@@ -52,41 +52,29 @@ const Search = () => {
   const [headers, setHeaders] = useState([]);
 
   useEffect(() => {
-    TicketService.getAllTrains()
-      .then((data) => {
-        // console.log(data);
-        setTrains(data);
-        const newHeaders = data.length > 0 ? Object.keys(data[0]) : [];
-        setHeaders(newHeaders);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
-  // const filteredTrainDetails = fetchTrainDetails.filter((train) => {
-  //   return (
-  //     train.From.toLowerCase().includes(searchFrom.toLowerCase()) &&
-  //     train.To.toLowerCase().includes(searchTo.toLowerCase()) &&
-  //     (selectedCoach === '' || train.Type.toLowerCase() === selectedCoach.toLowerCase()) &&
-  //     (!requiredSeats || train.Passenger >= parseInt(requiredSeats, 10))&&
-  //     (!searchDate || new Date(train.Check_In_Date) >= new Date(searchDate))
-  //   );
-  // });
+    if (searchFrom && searchTo) {
+      console.log(searchFrom)
+      console.log(searchTo)
+      TicketService.getTrainBetweenStations(searchFrom.toLowerCase(), searchTo.toLowerCase())
+        .then((data) => {
+          console.log(data);//check
+          setTrains(data);
+          const newHeaders = data.length > 0 ? Object.keys(data[0]) : [];
+          setHeaders(newHeaders);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [searchFrom, searchTo]);
 
   const filteredTrainDetails = trains.filter((train) => {
     return (
-      train.startingStation
-        .toLowerCase()
-        .includes(searchFrom.toLowerCase()) &&
-      train.endingStation.toLowerCase().includes(searchTo.toLowerCase()) &&
-      (selectedCoach === '' || train.classes.some(coach => coach.className.toLowerCase() === selectedCoach.toLowerCase())) &&
-      (!requiredSeats ||
-        train.totalSeats - train.bookedSeats >= parseInt(requiredSeats, 10)) 
+      (selectedCoach === '' || train.classes.some(coach => coach.className.toLowerCase() === selectedCoach.toLowerCase()))
+      // (!requiredSeats || train.totalSeats - train.bookedSeats >= parseInt(requiredSeats, 10))
       // (!searchDate || new Date(train.departureDate) >= new Date(searchDate))
     );
   });
-
   // const headers = Object.keys(fetchTrainDetails[0]);// used in static data for fetching
 
   return (
@@ -106,6 +94,12 @@ const Search = () => {
             onClick={() => setSelectedCoach("General")}
           >
             <span>General Coach</span>
+          </div>
+          <div
+            className={`singleBtn ${selectedCoach === "Sleeper" ? "active" : ""}`}
+            onClick={() => setSelectedCoach("Sleeper")}
+          >
+            <span>Sleeper Coach</span>
           </div>
         </div>
 
@@ -173,7 +167,7 @@ const Search = () => {
           {/* <button className='btn btnBlock'>Search Trains</button> */}
         </div>
         {searchFrom || searchTo ? (
-          <Train trains={filteredTrainDetails} headers={headers} />
+          <Train trains={filteredTrainDetails} headers={headers} type={selectedCoach} requiredSeats={requiredSeats}/>
         ) : null}
       </div>
     </div>

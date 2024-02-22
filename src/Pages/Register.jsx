@@ -175,7 +175,7 @@ const Register = () => {
     try {
       console.log(credentials)
       // Call the addPassenger function with the form data
-      const response = await TicketService.addUpdatePassengers(credentials);
+      const response = await TicketService.addPassengers(credentials);
       console.log(response);
       navigate("/login");
       // Handle the response as needed
