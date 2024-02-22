@@ -17,20 +17,19 @@ Webpage(Frontend-UI) : [Train-Ticket-Management](https://trainticketm.netlify.ap
 - **Backend :** springboot, jwt, swagger, eureka.
   
 
-*Want to run it localy !!!*
+**Want to run it localy !!!**
 ## Setup and run:
 *For running on localhost:*
 
-*FRONTEND :* **Go to client directory in terminal then:**
+*FRONTEND :* 
+-In the root foolder
 ```bash
 npm install
 npm run dev
 ```
-*BACKEND:* **Go to server directory in terminal then**
+*BACKEND:* 
 - Open the e-ticket-management folder in intelliJ or any other springboot IDE **(JAVA21 is required)**. Run the main .java file in src/java/com/madeeasy/*.java  for all the services.
-
 OR,
-
 - Go to the JAR folder run all jar file individually 
 ```bash
 java -jar filename.jar
