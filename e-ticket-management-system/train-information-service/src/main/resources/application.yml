@@ -5,9 +5,9 @@ spring:
   application:
     name: train-service
   datasource:
-    url: jdbc:mysql://localhost:3309/SCH?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/train-service
     username: root
-    password: password
+    password: 12345
   jpa:
     hibernate:
       ddl-auto: 'update'

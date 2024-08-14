@@ -5,9 +5,9 @@ spring:
   application:
     name: station-service
   datasource:
-    url: jdbc:mysql://localhost:3309/SCH?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/station-service
     username: root
-    password: password
+    password: 12345
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:

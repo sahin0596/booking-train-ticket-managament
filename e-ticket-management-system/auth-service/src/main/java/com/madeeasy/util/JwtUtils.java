@@ -10,11 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.crypto.SecretKey;
@@ -32,6 +30,18 @@ public class JwtUtils {
     private final RestTemplate restTemplate;
     private final PasswordEncoder passwordEncoder;
     Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+
+    public static String generate256BitKey() {
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] keyBytes = new byte[32]; // 256 bits is 32 bytes
+        secureRandom.nextBytes(keyBytes);
+        // Convert the byte array to a hexadecimal string
+        StringBuilder stringBuilder = new StringBuilder();
+        for (byte b : keyBytes) {
+            stringBuilder.append(String.format("%02x", b));
+        }
+        return stringBuilder.toString();
+    }
 
     public String generateToken(String email, String password) {
 
@@ -94,7 +104,6 @@ public class JwtUtils {
         return getAllClaims(token).getSubject();
     }
 
-
     public boolean isTokenExpired(String token) {
         Date expirationDate = getExpirationDate(token);
         return expirationDate.before(new Date(System.currentTimeMillis()));
@@ -103,7 +112,6 @@ public class JwtUtils {
     public boolean validateToken(String token, String userName) {
         return userName.equals(getUserName(token)) && !isTokenExpired(token);
     }
-
 
     public List<String> getRolesFromToken(String token) {
         Claims claims = getAllClaims(token);
@@ -121,21 +129,5 @@ public class JwtUtils {
             }
         }
         return roles;
-    }
-
-
-    /**
-     * custom method to generate a 256 random bit .
-     */
-    public static String generate256BitKey() {
-        SecureRandom secureRandom = new SecureRandom();
-        byte[] keyBytes = new byte[32]; // 256 bits is 32 bytes
-        secureRandom.nextBytes(keyBytes);
-        // Convert the byte array to a hexadecimal string
-        StringBuilder stringBuilder = new StringBuilder();
-        for (byte b : keyBytes) {
-            stringBuilder.append(String.format("%02x", b));
-        }
-        return stringBuilder.toString();
     }
 }

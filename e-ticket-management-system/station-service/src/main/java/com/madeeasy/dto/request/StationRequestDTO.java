@@ -21,5 +21,5 @@ public class StationRequestDTO {
     @Valid
     @NotNull(message = "Platform List cannot be null")
     private List<PlatformRequestDTO> platforms;
-    // Add any other relevant fields
+
 }

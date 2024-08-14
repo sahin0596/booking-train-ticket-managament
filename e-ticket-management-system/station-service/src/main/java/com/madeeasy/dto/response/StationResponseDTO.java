@@ -13,6 +13,6 @@ public class StationResponseDTO {
     private String location;
     private String description;
     private List<PlatformResponseDTO> platforms;
-    // Add any other relevant fields
+
 
 }

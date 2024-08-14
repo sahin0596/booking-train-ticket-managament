@@ -20,10 +20,6 @@ import java.util.List;
 public class StationServiceController {
 
 
-    /**
-     * This service is temporarily closed . In the future, it will be expanded with more features.
-     */
-
     private final StationService stationService;
 
     @GetMapping(value = "/get-all-stations")

@@ -14,5 +14,4 @@ public class PlatformRequestDTO {
     @NotBlank(message = "Platform number is required")
     private String platformNumber;
     private String description;
-    // Add any other relevant fields
 }
